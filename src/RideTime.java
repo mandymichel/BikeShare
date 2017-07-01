@@ -1,17 +1,36 @@
-
 public class RideTime {
 	private String duration = null;
 	private String monthDate = null;
 	private String startTerminal = null;
-	private Integer durationMin = 0;
+	private Float durationMin = null;
 	private String monthWord = null;
 
-	public RideTime(String duration, String monthDate, String startTerminal, Integer durationMin, String monthWord) {
+	public RideTime(String duration, String monthDate, String startTerminal) {
 		this.duration = duration;
 		this.monthDate = monthDate;
 		this.startTerminal = startTerminal;
-		this.durationMin = durationMin;
-		this.monthWord = monthWord;
+		String[] split = monthDate.split("/");
+		this.monthWord = split[0].trim();
+	}
+
+	public void initialize() {
+		String[] durationHMS = null;
+		String noLetters = getDuration().replaceAll("[hms-]+", "");
+		durationHMS = noLetters.split(" ");
+		String hour = durationHMS[0];
+		String minute = durationHMS[1];
+		if (durationHMS.length < 2) {
+			System.out.println(noLetters);
+		}
+		String second = durationHMS[2];
+		float h = Float.parseFloat(hour);
+		float m = Float.parseFloat(minute);
+		float s = Float.parseFloat(second);
+		h = h * 60;
+		s = s / 60;
+
+		float totalMinuteRental = h + m + s;
+		this.setDurationMin(totalMinuteRental);
 	}
 
 	public String getMonthWord() {
@@ -22,11 +41,11 @@ public class RideTime {
 		this.monthWord = monthWord;
 	}
 
-	public Integer getDurationMin() {
+	public Float getDurationMin() {
 		return durationMin;
 	}
 
-	public void setDurationMin(Integer durationMin) {
+	public void setDurationMin(Float durationMin) {
 		this.durationMin = durationMin;
 	}
 
@@ -56,7 +75,7 @@ public class RideTime {
 
 	@Override
 	public String toString() {
-		return this.monthWord + "\t" + this.durationMin + "\t" + this.startTerminal;
+		return monthWord + "\t" + durationMin + "\t" + startTerminal;
 	}
 
 }

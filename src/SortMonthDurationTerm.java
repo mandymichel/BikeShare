@@ -7,7 +7,7 @@ public class SortMonthDurationTerm implements Comparator<RideTime> {
 		// Assume no nulls, and simple ordinal comparisons
 
 		// First by month
-		int monthResult = v1.getMonthDate().compareTo(v2.getMonthDate());
+		int monthResult = v1.getMonthWord().compareTo(v2.getMonthWord());
 		if (monthResult != 0) {
 			return monthResult;
 		}
